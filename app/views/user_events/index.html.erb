@@ -1,0 +1,8 @@
+<h1>User list</h1>
+<%= render 'search_form' %>
+<br>
+<% if @user_events.present? %>
+  <h3>User available for searched date range</h3>
+<% else %>
+  <h3>User not available for searched date range</h3>
+<% end %>

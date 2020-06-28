@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<div class="title-container">
+  <%= "#{@event.name} - " "#{@event.start_date.strftime("%d %b %Y")}"  %>
+</div>
+<div class="event-actions">
+  <% if current_user && @event.attendable? %> 
+    <% if @user_event.nil? 
+      path = event_user_events_path(@event)
+      method = :post
+    elsif @user_event.status == 'attend'
+      path = event_user_event_path(@event, @user_event)
+      method = :put
+    else
+      path = new_user_event_order_path(@user_event)
+      method = :get
+    end %>
+    <% status =  @user_event&.reverse_status || 'attend' %>
+    <div class="attend-action-btn">
+      <%= button_to "#{status.titleize}", path, method: method, params: { status: status }, class: 'btn btn-outline-info' %>
+    </div>
+  <% end %>
+</div>
+<div class="user-event-list">List of other users attending event <%= @event.name %></div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @event_data.each_with_index do |e, i| %>
+      <tr>
+        <th scope="row"><%=i+1%></th>
+        <td><%= e[:user_name]&.titleize %></td>
+        <td><%= e[:gender]&.titleize %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

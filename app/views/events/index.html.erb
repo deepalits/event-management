@@ -1,0 +1,19 @@
+<h1>Event list</h1>
+<%= render 'search_form' %>
+<br>
+<% if @events.present? %>
+  <table class="table table-bordered">
+    <thead>
+      <th>Title</th>
+      <th>Start Datetime</th>
+      <th>End Datetime</th>
+    </thead>
+
+    <tbody id='events'>
+      <%= render @events %>
+    </tbody>
+  </table>
+
+<% else %>
+  <h3>No event found</h3>
+<% end %>

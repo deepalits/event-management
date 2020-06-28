@@ -1,0 +1,20 @@
+<%= form_for(:search, class: 'form-inline', url: user_events_path, method: :get) do |form| %>
+  <div class="form-group">
+    <%= form.text_field :date, class: 'form-control', data: { behavior: 'daterangepicker' } %>
+  </div>
+  <%= form.submit "Search", class: 'btn btn-success' %>
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+  $('[data-behavior=daterangepicker]').daterangepicker({
+    locale: { format: 'DD/MM/YYYY'},
+    cancelLabel: 'Clear'
+  });
+
+  $('[data-behavior=daterangepicker]').on('cancel.daterangepicker', function(){
+    $(this).val(' ');
+  });
+
+});
+</script>
